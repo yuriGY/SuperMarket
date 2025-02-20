@@ -18,19 +18,46 @@ O sistema será desenvolvido utilizando:
             - API
             - Client
 - DB
-    - Instalar o PostgreSQL
-    - Instalar o pgAdmin
     - Estruturar tabelas e relacionamentos
         - Versionar os scripts executados
-        - Tabela: products
+        - Tabela: users_types
+        - Tabela: users
         - Tabela: products_types
-        - Tabela: products_taxes
-        - Tabela: products_sales_log
+        - Tabela: products
+        - Tabela: products_images
+        - Tabela: payment_types
+        - Tabela: sales
+        - Tabela: products_sales
 
 - API
-    - Verificar o que é necessário instalar e como rodar um projeto PHP
-    - Criar projeto PHP
+    - Adaptar projeto para a estrutura do banco de dados, criando todos os endpoints necessários
+        - Mapear todos os endpoints
+    - CRUDs
+        - users
+        - products_types
+        - products
+    - Autenticação de usuário
+    - Listagem de usuários
+    - Listagem de produtos
+    - Listagem de tipos de produtos
+    - 
 - Client
     - Definir como será a interface gráfica
     - Criar projeto Angular
   
+
+## Todo
+- Carrinho
+    - Salvar Produtos no carrinho ao sair da página
+    - Verificar se já existe uma compra sendo realizada pela metade e permitir restaurar
+- Validar se o produto ainda está disponível antes de realizar a venda
+- Randomizador de IDs que aceita números e letras apenas
+
+
+## Fora do escopo inicial (próximas atualizações)
+- Possibilitar o cadastro e associação de múltiplos mercados, cada um com seu próprio estoque e log de vendas
+- Implementar two-factor authentication opcional para logar e obrigatório para alteração de senha
+- E-mail disparado com código em caso de esquecimento de senha
+- Produtos favoritos
+- Histórico de compras
+
