@@ -12,6 +12,7 @@ CREATE TABLE users (
     email VARCHAR(254) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     removed BOOLEAN DEFAULT FALSE,
+    is_sys_admin BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (user_type_id) REFERENCES users_types (id) ON DELETE CASCADE
 );
 
@@ -32,7 +33,7 @@ CREATE TABLE products (
 );
 
 CREATE TABLE products_images (
-    id SERIAL PRIMARY KEY,
+    id VARCHAR(8) PRIMARY KEY,
     product_id VARCHAR(8) NOT NULL,
     image BYTEA NOT NULL,
     content_type VARCHAR(50) NOT NULL,
