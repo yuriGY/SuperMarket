@@ -1,7 +1,3 @@
-INSERT INTO users_types (id, name) VALUES
-    ('X7a9B3c2', 'staff'),
-    ('P5d1E6f8', 'client');
-
 INSERT INTO payment_types (id, name) VALUES
     ('K3l8N5o1', 'Dinheiro'),
     ('R6q2S9t4', 'Crédito'),

@@ -1,25 +1,32 @@
 <?php
-header("Content-Type: application/json");
 
-require_once '../core/response.php';
+require '../Core/database.php';
+require '../Core/response.php';
+require '../Core/functions.php';
+
+require '../Controllers/ProductsController.php';
+require '../Controllers/ProductsTypesController.php';
+
+$pdo = getDbConnection();
 
 $request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$segments = explode('/', trim($request_uri, '/'));
+
+$resource = $segments[0] ?? null;
+$id = $segments[1] ?? null;
+
 $method = $_SERVER['REQUEST_METHOD'];
 
-switch ($request_uri) {
-    case '/users':
-        require '../routes/users.php';
+switch ($resource) {
+    case 'products':
+        $controller = new ProductsController($pdo);
         break;
-
-    case '/products_types':
-        require '../routes/products_types.php';
+    case 'products_types':
+        $controller = new ProductsTypesController($pdo);
         break;
-
-    case '/products':
-        require '../routes/products.php';
-        break;
-
     default:
-        sendResponse(404, ["error" => "Rota não encontrada"]);
-        break;
+        sendResponse(404, ["error" => "Recurso não encontrado"]);
+        exit;
 }
+
+$controller->handleRequest($method, $id);
