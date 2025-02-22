@@ -31,7 +31,7 @@ pg_restore -U postgres -h localhost -p 5432 --create --clean --if-exists --verbo
 
 ### Rodando a API
 1. Em outra janela de terminal, acesse a raiz da pasta api do repositório clonado
-2. No arquivo database.php no caminho <pasta_do_repositorio>\api\core\database.php, altere os valores das variáveis $host, $port, $dbname, $user e $password de acordo com os parâmetros para os configurados no PostgreSQL da sua máquina e como fizemos já na etapa da **Restauração e Setup do BD**
+2. No arquivo database.php no caminho <pasta_do_repositorio>\Api\Core\config.php, altere os valores das variáveis $host, $port, $dbname, $user e $password de acordo com os parâmetros para os configurados no PostgreSQL da sua máquina e como fizemos já na etapa da **Restauração e Setup do BD**
 3. Para rodar nosso servidor local, digite o comando
 ```
 php -S localhost:8080 -t public
@@ -57,44 +57,7 @@ Pronto, com os três projetos disponíveis e rodando, basta utilizar o sistema!
 
 
 ## Checklist
-- Infraestrutura
-    - Criar repositório
-    - Criar README
-        - Descrever como reproduzir o ambiente e rodar a aplicação
-            - DB
-            - API
-            - Client
-- DB
-    - Estruturar tabelas e relacionamentos
-        - Versionar os scripts executados
-        - Tabela: users_types
-        - Tabela: users
-        - Tabela: products_types
-        - Tabela: products
-        - Tabela: products_images
-        - Tabela: payment_types
-        - Tabela: sales
-        - Tabela: products_sales
-
-- API
-    - Adaptar projeto para a estrutura do banco de dados, criando todos os endpoints necessários
-        - Mapear todos os endpoints
-    - CRUDs
-        - users
-        - products_types
-        - products
-    - Autenticação de usuário
-    - Listagem de produtos
-    - Listagem de tipos de produtos
-    - 
-- Client
-    - Definir como será a interface gráfica
-    - Criar projeto Angular
-  
-
-## Todo
 ## api
-- Testar operações no banco pelo postman
 - Criar endpoint para vendas
 
 ### client
@@ -105,23 +68,21 @@ Pronto, com os três projetos disponíveis e rodando, basta utilizar o sistema!
     - Consultar objetos antes de atualizar
 - Snackbar com mensagens
 
-### Melhorias fora de escopo
-- Estruturar projeto em commands e queries
+## Fora do escopo inicial (próximas atualizações)
+- Higienizar input de dados para evitar SQL Injection
+- Transformar consultas em procedures
+- Consultar objetos antes de atualizar e atualizar somente registros alterados
+- Implementar $action nas controllers para realizar operações diferentes
+
+### Implementação de usuários
 - Autenticação de usuário
-- CRUD de usuário
 - Tratamentos de quem pode realizar que ações:
     - Somente staff pode visualizar as listagens, criar e atualizar produtos, tipos de produtos e usuários
     - Clientes somente poderão atualizar seus próprios perfis e não poderão alterar seu tipo de usuário
-- Inserir usuários padrão (staff, client e sys_admin)
-
-## Fora do escopo inicial (próximas atualizações)
-- Possibilitar o cadastro e associação de múltiplos mercados, cada um com seu próprio estoque e log de vendas
-- Implementar two-factor authentication opcional para logar e obrigatório para alteração de senha
-- E-mail disparado com código em caso de esquecimento de senha
 - Produtos favoritos
 - Histórico de compras
 - Permitir troca de tipo do usuário via sistema
-- Transformar consultas em procedures
 - Permitir à staff visualizar usuários removidos e editar as informações deles
-- Permitir à staff visualizar produtos removidos e editar as informações deles
-- Consultar objetos antes de atualizar e atualizar somente registros alterados
+- Implementar two-factor authentication opcional para logar e obrigatório para alteração de senha
+- E-mail disparado com código em caso de esquecimento de senha
+- Possibilitar o cadastro e associação de múltiplos mercados, cada um com seu próprio estoque e log de vendas

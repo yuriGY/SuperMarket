@@ -7,8 +7,18 @@ class ListProductsTypesQuery {
         $this->pdo = $pdo;
     }
 
-    public function execute() {
-        $stmt = $this->pdo->query("SELECT id, name, product_tax FROM products_types WHERE removed = FALSE");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function GetError() {
+        return null;
+    }
+
+    public function HasPermission() {
+        return true;
+    }
+
+    public function Execute() {
+        $sql = $this->pdo->query("SELECT id, name, product_tax, removed FROM products_types");
+        $productsTypes = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        return ["status" => 200, "data" => $productsTypes];
     }
 }

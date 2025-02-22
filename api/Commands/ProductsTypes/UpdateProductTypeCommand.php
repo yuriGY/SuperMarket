@@ -7,13 +7,37 @@ class UpdateProductTypeCommand {
         $this->pdo = $pdo;
     }
 
-    public function execute($id, $input) {
-        if (!isset($input['name']) || !isset($input['product_tax'])) {
-            return ["error" => "Nome e imposto pago são obrigatórios"];
+    public function GetError($id, $input) {
+        if (empty($id) || strlen($id) !== 8) {
+            return ["status" => 400, "message" => "Identificador inválido"];
         }
 
+        $sql = $this->pdo->prepare("SELECT id FROM products_types WHERE id = ? AND removed = FALSE");
+        $sql->execute([$id]);
+
+        if ($sql->rowCount() === 0) {
+            return ["status" => 404, "message" => "Tipo de produto não encontrado"];
+        }
+
+        if (empty($input['name'])) {
+            return ["status" => 400, "message" => "O campo Nome é obrigatório"];
+        }
+
+        if (empty($input['product_tax']) && $input['product_tax'] != 0) {
+            return ["status" => 400, "message" => "O campo Imposto pago é obrigatório"];
+        }
+
+        return null;
+    }
+
+    public function HasPermission() {
+        return true;
+    }
+
+    public function Execute($id, $input) {
         $sql = $this->pdo->prepare("UPDATE products_types SET name = ?, product_tax = ? WHERE id = ?");
         $sql->execute([$input['name'], $input['product_tax'], $id]);
-        return ["message" => "Tipo de produto atualizado com sucesso"];
+
+        return ["status" => 200, "data" => ["message" => "Tipo de produto atualizado com sucesso"]];
     }
 }

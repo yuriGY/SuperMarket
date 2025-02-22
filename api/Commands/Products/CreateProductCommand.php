@@ -7,13 +7,30 @@ class CreateProductCommand {
         $this->pdo = $pdo;
     }
 
-    public function execute($input) {
-        if (!isset($input['name']) || !isset($input['product_type_id']) || !isset($input['stock'])) {
-            return ["error" => "Nome, tipo e quantidade em estoque são obrigatórios"];
+    public function GetError($input) {
+        if (empty($input['name'])) {
+            return ["status" => 400, "message" => "O campo Nome é obrigatório"];
         }
 
+        if (empty($input['product_type_id'])) {
+            return ["status" => 400, "message" => "O campo Tipo é obrigatório"];
+        }
+
+        if (empty($input['stock']) && $input['stock'] != 0) {
+            return ["status" => 400, "message" => "O campo Quantidade em estoque é obrigatório"];
+        }
+
+        return null;
+    }
+
+    public function HasPermission() {
+        return true;
+    }
+
+    public function Execute($input) {
         $sql = $this->pdo->prepare("INSERT INTO products (id, name, product_type_id, stock) VALUES (?, ?, ?, ?)");
         $sql->execute([generateRandomId(), $input['name'], $input['product_type_id'], $input['stock']]);
-        return ["message" => "Produto criado com sucesso"];
+
+        return ["status" => 201, "data" => ["message" => "Produto criado com sucesso"]];
     }
 }
