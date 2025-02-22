@@ -23,12 +23,16 @@ class UpdateProductCommand {
             return ["status" => 400, "message" => "O campo Nome é obrigatório"];
         }
 
-        if (empty($input['product_type_id'])) {
+        if (empty($input['productTypeId'])) {
             return ["status" => 400, "message" => "O campo Tipo é obrigatório"];
         }
 
         if (empty($input['stock']) && $input['stock'] != 0) {
             return ["status" => 400, "message" => "O campo Quantidade em estoque é obrigatório"];
+        }
+
+        if (empty($input['cost']) && $input['cost'] >= 0) {
+            return ["status" => 400, "message" => "O campo Custo é obrigatório e não pode ser negativo"];
         }
 
         return null;
@@ -39,8 +43,8 @@ class UpdateProductCommand {
     }
 
     public function Execute($id, $input) {
-        $sql = $this->pdo->prepare("UPDATE products SET name = ?, product_type_id = ?, stock = ? WHERE id = ?");
-        $sql->execute([$input['name'], $input['product_type_id'], $input['stock'], $id]);
+        $sql = $this->pdo->prepare("UPDATE products SET name = ?, product_type_id = ?, stock = ?, cost = ? WHERE id = ?");
+        $sql->execute([$input['name'], $input['productTypeId'], $input['stock'], $input['cost'], $id]);
 
         return ["status" => 200, "data" => ["message" => "Produto atualizado com sucesso"]];
     }

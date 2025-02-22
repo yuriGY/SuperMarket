@@ -6,6 +6,7 @@ require '../Core/functions.php';
 
 require '../Controllers/ProductsController.php';
 require '../Controllers/ProductsTypesController.php';
+require '../Controllers/SalesController.php';
 
 $pdo = getDbConnection();
 
@@ -23,6 +24,9 @@ switch ($resource) {
         break;
     case 'products_types':
         $controller = new ProductsTypesController($pdo);
+        break;
+    case 'sales':
+        $controller = new SalesController($pdo);
         break;
     default:
         sendResponse(404, ["error" => "Recurso não encontrado"]);

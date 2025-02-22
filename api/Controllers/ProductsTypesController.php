@@ -21,27 +21,27 @@ class ProductsTypesController {
         switch ($method) {
             case 'GET':
                 if ($id) {
-                    $result = $this->requestHandler->handleQuery(new GetProductTypeByIdQuery($this->pdo), [$id]);
+                    $result = $this->requestHandler->handle(new GetProductTypeByIdQuery($this->pdo), [$id]);
                 } else {
-                    $result = $this->requestHandler->handleQuery(new ListProductsTypesQuery($this->pdo));
+                    $result = $this->requestHandler->handle(new ListProductsTypesQuery($this->pdo));
                 }
                 sendResponse($result['status'], $result['data']);
                 break;
 
             case 'POST':
                 $input = json_decode(file_get_contents('php://input'), true);
-                $result = $this->requestHandler->handleCommand(new CreateProductTypeCommand($this->pdo), [$input]);
+                $result = $this->requestHandler->handle(new CreateProductTypeCommand($this->pdo), [$input]);
                 sendResponse($result['status'], $result['data']);
                 break;
 
             case 'PUT':
                 $input = json_decode(file_get_contents('php://input'), true);
-                $result = $this->requestHandler->handleCommand(new UpdateProductTypeCommand($this->pdo), [$id, $input]);
+                $result = $this->requestHandler->handle(new UpdateProductTypeCommand($this->pdo), [$id, $input]);
                 sendResponse($result['status'], $result['data']);
                 break;
 
             case 'DELETE':
-                $result = $this->requestHandler->handleCommand(new RemoveProductTypeCommand($this->pdo), [$id]);
+                $result = $this->requestHandler->handle(new RemoveProductTypeCommand($this->pdo), [$id]);
                 sendResponse($result['status'], $result['data']);
                 break;
 

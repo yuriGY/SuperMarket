@@ -23,7 +23,7 @@ class UpdateProductTypeCommand {
             return ["status" => 400, "message" => "O campo Nome é obrigatório"];
         }
 
-        if (empty($input['product_tax']) && $input['product_tax'] != 0) {
+        if (empty($input['productTax']) && $input['productTax'] != 0) {
             return ["status" => 400, "message" => "O campo Imposto pago é obrigatório"];
         }
 
@@ -36,7 +36,7 @@ class UpdateProductTypeCommand {
 
     public function Execute($id, $input) {
         $sql = $this->pdo->prepare("UPDATE products_types SET name = ?, product_tax = ? WHERE id = ?");
-        $sql->execute([$input['name'], $input['product_tax'], $id]);
+        $sql->execute([$input['name'], $input['productTax'], $id]);
 
         return ["status" => 200, "data" => ["message" => "Tipo de produto atualizado com sucesso"]];
     }

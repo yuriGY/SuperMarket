@@ -12,7 +12,7 @@ class CreateProductTypeCommand {
             return ["status" => 400, "message" => "O campo Nome é obrigatório"];
         }
 
-        if (empty($input['product_tax']) && $input['product_tax'] != 0) {
+        if (empty($input['productTax']) && $input['productTax'] != 0) {
             return ["status" => 400, "message" => "O campo Imposto pago é obrigatório"];
         }
 
@@ -25,7 +25,7 @@ class CreateProductTypeCommand {
 
     public function Execute($input) {
         $sql = $this->pdo->prepare("INSERT INTO products_types (id, name, product_tax) VALUES (?, ?, ?)");
-        $sql->execute([generateRandomId(), $input['name'], $input['product_tax']]);
+        $sql->execute([generateRandomId(), $input['name'], $input['productTax']]);
 
         return ["status" => 201, "data" => ["message" => "Tipo de produto criado com sucesso"]];
     }

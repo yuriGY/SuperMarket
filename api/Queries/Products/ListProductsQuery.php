@@ -16,7 +16,7 @@ class ListProductsQuery {
     }
 
     public function Execute() {
-        $sql = $this->pdo->query("SELECT id, name, product_type_id, stock FROM products WHERE removed = FALSE");
+        $sql = $this->pdo->query("SELECT id, name, product_type_id, stock, cost FROM products WHERE removed = FALSE");
         $products = $sql->fetchAll(PDO::FETCH_ASSOC);
 
         return ["status" => 200, "data" => $products];

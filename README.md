@@ -19,20 +19,20 @@ O sistema foi desenvolvido utilizando:
 
  ### Restauração e Setup do BD
 1. Abra um terminal de sua escolha
-2. Execute o comando pg_restore apontando para o caminho do arquivo super_market.dump dentro da pasta db do repositório e altere os parâmetros para os configurados no PostgreSQL da sua máquina
+2. Execute o comando pg_restore apontando para o caminho do arquivo super_market.dump dentro da raiz do repositório e altere os parâmetros do comando abaixo para os configurados no PostgreSQL instalado na sua máquina
 ```
 pg_restore -U <usuario> -h <host>  -p <porta> -d <nome_do_banco > --clean --if-exists --verbose "<caminho_do_arquivo>"
 ```
 3. Exemplo:
 ```
-pg_restore -U postgres -h localhost -p 5432 --create --clean --if-exists --verbose -d postgres "C:\Users\yuri\Documents\SuperMarket\db\super_market.dump"
+pg_restore -U postgres -h localhost -p 5432 --create --clean --if-exists --verbose -d postgres "C:\Users\yuri\Documents\SuperMarket\super_market.dump"
 ```
 4. Conecte-se ao banco de dados super_market criado e deixe-o acessível e rodando
 
 ### Rodando a API
 1. Em outra janela de terminal, acesse a raiz da pasta api do repositório clonado
-2. No arquivo database.php no caminho <pasta_do_repositorio>\Api\Core\config.php, altere os valores das variáveis $host, $port, $dbname, $user e $password de acordo com os parâmetros para os configurados no PostgreSQL da sua máquina e como fizemos já na etapa da **Restauração e Setup do BD**
-3. Para rodar nosso servidor local, digite o comando
+2. No arquivo config.php no caminho <pasta_do_repositorio>\Api\Core\config.php, altere os valores das variáveis $host, $port, $dbname, $user e $password de acordo com os parâmetros para os configurados no PostgreSQL da sua máquina e como fizemos já na etapa da **Restauração e Setup do BD**
+3. Para rodar nosso servidor local, na raiz da api, <pasta_do_repositorio>\Api, digite o comando
 ```
 php -S localhost:8080 -t public
 ```
@@ -57,9 +57,6 @@ Pronto, com os três projetos disponíveis e rodando, basta utilizar o sistema!
 
 
 ## Checklist
-## api
-- Criar endpoint para vendas
-
 ### client
 - Carrinho
     - Salvar Produtos no carrinho ao sair da página
