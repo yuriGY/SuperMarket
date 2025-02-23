@@ -38,19 +38,17 @@ php -S localhost:8080 -t public
 ```
 
 ### Rodando o Client
-1. Para rodar o projeto, você precisará do node.js instalado na máquina
-    - Caso não possua, instale-o, por favor: https://nodejs.org/pt/download
-2. Mais uma vez, abra outra janela do terminal de sua escolha
-3. Acesse a pasta super-market dentro da pasta client, localizada na raiz do repositório
-4. Digite o comando para instalar as dependências:
+1. Mais uma vez, abra outra janela do terminal de sua escolha
+2. Acesse a pasta superMarket dentro da pasta client, localizada na raiz do repositório
+3. Digite o comando para instalar as dependências:
 ```
 npm install
 ```
-5. Digite o comando para rodar o projeto ângular:
+4. Digite o comando para rodar o projeto Angular:
 ```
 npm start
 ```
-6. Acesse a URL https:/
+5. Acesse a URL http://localhost:4200/
 
 ### Mãos a obra!!
 Pronto, com os três projetos disponíveis e rodando, basta utilizar o sistema!

@@ -18,11 +18,11 @@ class MakeSaleCommand {
         }
 
         foreach ($input['productsSales'] as $product) {
-            if (empty($product['productId']) || empty($product['quantitySold'])) {
+            if (empty($product['productId'])) {
                 return ["status" => 400, "message" => "Algo deu errado, recarregue a página e tente novamente"];
             }
 
-            if ($product['quantitySold'] < 1) {
+            if (empty($product['quantitySold'] || $product['quantitySold'] < 1)) {
                 return ["status" => 400, "message" => "Transação negada! Existem itens sendo comprados com quantidades igual a zero!"];
             }
         }
