@@ -94,6 +94,7 @@ A seguir estão listadas as ideias de melhorias que tive, mas acabei que não im
 - Implementar $action nas controllers para realizar operações diferentes com o mesmo tipo de requisição (GET, POST, PUT, DELETE)
 - Criar interfaces para retornos de dados de cada commands/query
 - Implementar mensagens de retorno técnicas, após, tratar as mensagens no front baseado no código retornado pela requisição
+- Utilizar Namespaces
 
 ### Client
 
