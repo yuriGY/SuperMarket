@@ -14,7 +14,7 @@ class SalesController {
         $this->requestHandler = new RequestHandler($pdo);
     }
 
-    public function handleRequest($method, $id = null) {
+    public function handleRequest($method, $input, $id = null) {
         switch ($method) {
             case 'GET':
                 $result = $this->requestHandler->handle(new CheckoutQuery($this->pdo), [$id]);
@@ -22,7 +22,6 @@ class SalesController {
                 break;
 
             case 'POST':
-                $input = json_decode(file_get_contents('php://input'), true);
                 $result = $this->requestHandler->handle(new MakeSaleCommand($this->pdo), [$input]);
                 sendResponse($result['status'], $result['data']);
                 break;

@@ -1,5 +1,4 @@
 <?php
-
 require '../Core/database.php';
 require '../Core/response.php';
 require '../Core/functions.php';
@@ -7,6 +6,24 @@ require '../Core/functions.php';
 require '../Controllers/ProductsController.php';
 require '../Controllers/ProductsTypesController.php';
 require '../Controllers/SalesController.php';
+
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+header('Access-Control-Allow-Headers: Content-Type');
+
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    exit(0);
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'PUT') {
+    $inputData = json_decode(file_get_contents('php://input'), true);
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        sendResponse(400, ['error' => 'Dados JSON inválidos']);
+        exit;
+    }
+} else {
+    $inputData = null;
+}
 
 $pdo = getDbConnection();
 
@@ -33,4 +50,4 @@ switch ($resource) {
         exit;
 }
 
-$controller->handleRequest($method, $id);
+$controller->handleRequest($method, $inputData, $id);

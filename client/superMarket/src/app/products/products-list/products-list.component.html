@@ -1,1 +1,50 @@
-<p>products-list works!</p>
+<page (pageLoaded)="setTableMaxHeight($event)">
+    <div #container>
+        <header title="Produtos" [showCreateButton]="true"></header>
+        
+        <search-bar 
+            title="Pesquisar produtos" 
+            placeholder="Digite uma informação do produto desejado" 
+            [dataSource]="products" 
+            [searchQuery]="searchQuery">
+        </search-bar>
+    </div>
+
+    @if (tableMaxHeight) {
+        <div class="table-container" [ngStyle]="{'max-height': tableMaxHeight}">
+            <table mat-table [dataSource]="products">
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Nome </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="cost">
+                    <th mat-header-cell *matHeaderCellDef> Preço </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cost}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="stock">
+                    <th mat-header-cell *matHeaderCellDef> Quantidade em estoque </th>
+                    <td mat-cell *matCellDef="let element"> {{element.stock}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="typename">
+                    <th mat-header-cell *matHeaderCellDef> Tipo </th>
+                    <td mat-cell *matCellDef="let element"> {{element.typename}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="delete">
+                    <th mat-header-cell *matHeaderCellDef> Ações </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button (click)="delete(element.id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClick($event, row.id)"></tr>
+            </table>
+        </div>
+    }
+</page>

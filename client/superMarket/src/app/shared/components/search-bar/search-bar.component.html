@@ -1,0 +1,4 @@
+<mat-form-field class="search-bar">
+    <mat-label>{{ title }}</mat-label>
+    <input matInput [(ngModel)]="searchQuery" (ngModelChange)="applySearch()" [placeholder]="placeholder">
+</mat-form-field>

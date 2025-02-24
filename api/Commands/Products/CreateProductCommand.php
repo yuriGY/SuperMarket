@@ -12,7 +12,7 @@ class CreateProductCommand {
             return ["status" => 400, "message" => "O campo Nome é obrigatório"];
         }
 
-        if (empty($input['productTypeId'])) {
+        if (empty($input['productTypeId']) || strlen($input['productTypeId']) !== 8) {
             return ["status" => 400, "message" => "O campo Tipo é obrigatório"];
         }
 

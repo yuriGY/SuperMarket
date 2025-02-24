@@ -10,7 +10,7 @@ CREATE TABLE products (
     name VARCHAR(100) NOT NULL,
     product_type_id VARCHAR(8) NOT NULL,
     stock INT NOT NULL,
-    cost DECIMAL(10, 2) NOT NULL
+    cost DECIMAL(10, 2) NOT NULL,
     removed BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (product_type_id) REFERENCES products_types (id) ON DELETE CASCADE
 );
@@ -33,6 +33,7 @@ CREATE TABLE sales (
     payment_type_id VARCHAR(8) NOT NULL,
     total_cost DECIMAL(10, 2),
     total_taxes DECIMAL(10, 2),
+    date TIMESTAMP WITH TIME ZONE NOT NULL,
     FOREIGN KEY (payment_type_id) REFERENCES payment_types (id) ON DELETE CASCADE
 );
 

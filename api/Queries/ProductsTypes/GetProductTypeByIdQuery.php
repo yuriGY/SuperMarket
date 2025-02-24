@@ -20,7 +20,7 @@ class GetProductTypeByIdQuery {
     }
 
     public function Execute($id) {
-        $sql = $this->pdo->prepare("SELECT id, name, product_tax FROM products_types WHERE id = ? AND removed = FALSE");
+        $sql = $this->pdo->prepare("SELECT id, name, product_tax AS producttax FROM products_types WHERE id = ? AND removed = FALSE");
         $sql->execute([$id]);
         $productType = $sql->fetch(PDO::FETCH_ASSOC);
 

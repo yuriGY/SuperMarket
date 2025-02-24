@@ -1,0 +1,40 @@
+form { 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .form-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 80%;
+        margin-right: 5%;
+        margin-left: 5%;
+    }
+
+    #upper-form-container {
+        margin-top: 4%;
+        margin-bottom: 5%;
+        #name-field {
+            width: 100%;
+        }
+    }
+
+    #lower-form-container {
+        #type-field {
+            width: 50%;
+            margin-right: auto;
+        }
+
+        #stock-field {
+            width: 20%;
+            margin-right: 2%;
+        }
+
+        #cost-field {
+            width: 20%;
+        }
+    }
+}

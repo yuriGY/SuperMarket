@@ -54,36 +54,36 @@ class MakeSaleCommand {
     public function Execute($input) {
         try {
             $this->pdo->beginTransaction();
-
+    
             $saleId = generateRandomId();
             $totalSaleCost = 0;
             $totalTaxes = 0;
-
-            $sqlSale = $this->pdo->prepare("INSERT INTO sales (id, payment_type_id) VALUES (?, ?)");
+    
+            $sqlSale = $this->pdo->prepare("INSERT INTO sales (id, payment_type_id, date) VALUES (?, ?, NOW())");
             $sqlSale->execute([$saleId, $input['paymentTypeId']]);
-
+    
             $sqlProductSale = $this->pdo->prepare("INSERT INTO products_sales (id, product_id, quantity_sold, total_cost, taxes, sale_id) VALUES (?, ?, ?, ?, ?, ?)");
             $sqlUpdateStock = $this->pdo->prepare("UPDATE products SET stock = stock - ? WHERE id = ? AND stock >= ?");
-
+    
             foreach ($input['productsSales'] as $product) {
                 $productId = $product['productId'];
                 $quantitySold = $product['quantitySold'];
-
+    
                 $productInfo = $this->getProductData($productId);
-
+    
                 if ($productInfo) {
                     $cost = $productInfo['cost'];
                     $productTax = $productInfo['product_tax'];
-
+    
                     $totalCost = $cost * $quantitySold;
                     $taxes = ($productTax / 100) * $totalCost;
-
+    
                     $totalSaleCost += $totalCost;
                     $totalTaxes += $taxes;
-
+    
                     $sqlProductSale->execute([generateRandomId(), $productId, $quantitySold, $totalCost, $taxes, $saleId]);
                     $sqlUpdateStock->execute([$quantitySold, $productId, $quantitySold]);
-
+    
                     if ($sqlUpdateStock->rowCount() === 0) {
                         $this->pdo->rollBack();
                         return ["status" => 400, "data" => ["error" => "Estoque insuficiente, recarregue a página e tente novamente"]];
@@ -93,9 +93,9 @@ class MakeSaleCommand {
             
             $sqlUpdateSale = $this->pdo->prepare("UPDATE sales SET total_cost = ?, total_taxes = ? WHERE id = ?");
             $sqlUpdateSale->execute([$totalSaleCost, $totalTaxes, $saleId]);
-
+    
             $this->pdo->commit();
-
+    
             return ["status" => 201, "data" => ["message" => "Compra efetuada com sucesso!", "saleId" => $saleId]];
         } catch (Exception $e) {
             $this->pdo->rollBack();

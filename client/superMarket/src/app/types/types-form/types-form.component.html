@@ -1,1 +1,35 @@
-<p>types-form works!</p>
+<page>
+    <header 
+        [title]="headerTitle" 
+        [showCreateButton]="true" 
+        [isForm]="true" 
+        [buttonDisabled]="!isValid()" 
+        (buttonClicked)="save()">
+    </header>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+        <div id="form-container">
+            <mat-form-field id="name-field">
+                <mat-label>Nome</mat-label>
+                <input matInput formControlName="name" placeholder="Nome do tipo de produto">
+                @if (form.get('name')?.hasError('required')) {
+                    <mat-error>O campo Nome é obrigatório</mat-error>
+                }
+                @if (form.get('name')?.hasError('maxlength')) {
+                    <mat-error>O nome não pode exceder 100 caracteres</mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field id="product-tax-field">
+                <mat-label>Taxa de imposto</mat-label>
+                <input matInput formControlName="productTax" placeholder="Taxa de imposto sobre o produto" type="number">
+                @if (form.get('producTax')?.hasError('required')) {
+                    <mat-error>O campo Taxa de imposto é obrigatório</mat-error>
+                }
+                @if (form.get('productTax')?.hasError('min')) {
+                    <mat-error>A Taxa de imposto não pode ser negativa</mat-error>
+                }
+            </mat-form-field>
+        </div>
+    </form>
+</page>

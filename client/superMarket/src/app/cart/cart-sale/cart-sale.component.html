@@ -1,5 +1,101 @@
-<mat-toolbar color="primary">
-  <span>Meu Projeto</span>
-</mat-toolbar>
+<page (pageLoaded)="setMatrixMaxHeight($event)">
+  <div #container>
+    <header title="Carrinho"></header>
+  </div>
 
-<button mat-raised-button color="accent">Clique Aqui</button>
+     @if (matrixMaxHeight) {
+      <div id="matrix-container" [ngStyle]="{'max-height': matrixMaxHeight}">
+        
+        <div id="left-column" class="matrix-container-column" [ngStyle]="{'height': leftColumnHeight}">
+          <span class="matrix-container-header">
+            <mat-icon>point_of_sale</mat-icon>
+            Caixa
+          </span>
+          <section class="selected-items">
+            @if (!hasItemsSelected) {
+              <div class="item">
+                Parece que seu carrinho está vazio, clique nos produtos ao lado e aproveite as melhores ofertas!
+              </div>
+            }
+
+            @for (item of selectedItems; track item.id) {
+              @if (item.quantity > 0) {
+                <div class="item">
+                  <span>{{ item.name }} - </span>Preço unitário: R${{ item.cost | number:'1.2-2' }} X {{ item.quantity }}x unidades = R${{ (item.cost * item.quantity) | number:'1.2-2' }}
+                  X {{ item.tax | number:'1.2-2' }}% de Imposto -> Total: <span>R${{ ((item.cost * item.quantity) * (1 + (item.tax / 100))) | number:'1.2-2' }}</span>
+                </div>
+              }
+            }
+          </section>
+          <section id="bottom-section">
+            <div id="summary">
+              <p id="total-cost">Total: R${{ totalCost | number:'1.2-2' }}</p>
+              <p>Total Impostos: R${{ totalTaxes | number:'1.2-2' }}</p>
+            </div>
+            <div id="actions">
+              <button mat-button class="button-action" [disabled]="!hasItemsSelected" 
+                [ngStyle]="{'background-color': hasItemsSelected ? '#643757f8' : ' #64375799', 'color': hasItemsSelected ? '#faeeef' : ''}"(click)="finalizeSale()">
+                Finalizar
+                <mat-icon>check</mat-icon> 
+              </button>
+              <div id="actions-bottom">
+                <mat-form-field>
+                  <mat-select [(value)]="selectedPaymentType" placeholder="Forma de Pagamento">
+                    @for (paymentType of paymentTypes; track paymentType.id) {
+                      <mat-option [value]="paymentType.id">{{ paymentType.name }}</mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+                <button mat-button class="button-action" style="width: 50%;" [disabled]="!hasItemsSelected" 
+                  [ngStyle]="{'background-color': hasItemsSelected ? '#643757f8' : '#64375799', 'color': hasItemsSelected ? '#faeeef' : ''}" (click)="clearCart()">
+                  Limpar
+                  <mat-icon>delete</mat-icon> 
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div id="right-column" class="matrix-container-column" [ngStyle]="{'height': leftColumnHeight}">
+          <span class="matrix-container-header">
+            <mat-icon id="product-icon">store</mat-icon>
+            Produtos
+          </span>
+
+          <section id="product-grid">
+            @for (product of products; track product.id) {
+            <div class="product-card">
+              <span id="card-header">{{ product.name }}</span>
+            
+              <section class="product-info-container">
+                <div class="product-info">
+                  <span>Preço: </span>
+                  <span>R${{ product.cost }}</span>
+                </div>
+                <div class="product-info">
+                  <span>Taxa de Imposto: </span>
+                  <span>{{ product.tax }}%</span>
+                </div>
+              </section>
+              <div class="product-info" *ngIf="product.stock < 1">
+                <span class="out-of-stock">Esgotado</span>
+              </div>
+            
+              <div class="quantity-control">
+                <button mat-icon-button (click)="decreaseQuantity(product)" [disabled]="product.stock < 1"
+                  [ngStyle]="{'background-color': product.stock > 0 ? '#643757f8' : '#64375799', 'color': product.stock > 0 ? '#faeeef' : ''}">
+                  <mat-icon>remove</mat-icon>
+                </button>
+                <input type="number" [(ngModel)]="product.quantity" min="0" [readonly]="product.stock < 1">
+                <button mat-icon-button (click)="increaseQuantity(product)" [disabled]="product.stock < 1"
+                  [ngStyle]="{'background-color': product.stock > 0 ? '#643757f8' : '#64375799', 'color': product.stock > 0 ? '#faeeef' : ''}">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+            </div>
+            }
+          </section>
+        </div>
+      </div>
+    }
+</page>

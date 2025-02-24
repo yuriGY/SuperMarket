@@ -16,7 +16,7 @@ class ListProductsTypesQuery {
     }
 
     public function Execute() {
-        $sql = $this->pdo->query("SELECT id, name, product_tax, removed FROM products_types");
+        $sql = $this->pdo->query("SELECT id, name, product_tax AS producttax, removed FROM products_types");
         $productsTypes = $sql->fetchAll(PDO::FETCH_ASSOC);
 
         return ["status" => 200, "data" => $productsTypes];

@@ -17,7 +17,7 @@ class ProductsController {
         $this->requestHandler = new RequestHandler($pdo);
     }
 
-    public function handleRequest($method, $id = null) {
+    public function handleRequest($method, $input, $id = null) {
         switch ($method) {
             case 'GET':
                 if ($id) {
@@ -29,13 +29,11 @@ class ProductsController {
                 break;
 
             case 'POST':
-                $input = json_decode(file_get_contents('php://input'), true);
                 $result = $this->requestHandler->handle(new CreateProductCommand($this->pdo), [$input]);
                 sendResponse($result['status'], $result['data']);
                 break;
 
             case 'PUT':
-                $input = json_decode(file_get_contents('php://input'), true);
                 $result = $this->requestHandler->handle(new UpdateProductCommand($this->pdo), [$id, $input]);
                 sendResponse($result['status'], $result['data']);
                 break;

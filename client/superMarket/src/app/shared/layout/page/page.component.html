@@ -1,0 +1,33 @@
+<div #toolbarContainer>
+  <mat-toolbar >
+    <button mat-button id="logo" (click)="navigateTo('/')">
+      <mat-icon>storefront</mat-icon> SuperMarket
+    </button>
+  </mat-toolbar>
+</div>
+
+<div id="page-container" #pageContainer>
+  <mat-sidenav-container>
+    <mat-sidenav mode="side" opened>
+      <section id="sidenav">
+        <div class="nav-item" (click)="navigateTo('/')">
+          <mat-icon>shopping_cart</mat-icon>
+          Carrinho
+        </div>
+        <div class="nav-item" (click)="navigateTo('/products')">
+          <mat-icon>store</mat-icon>
+          Produtos
+        </div>
+        <div class="nav-item" (click)="navigateTo('/types')">
+          <mat-icon>category</mat-icon>
+          Tipos de Produto
+        </div>
+      </section>
+    </mat-sidenav>
+  </mat-sidenav-container>
+  
+  <div class="content">
+    <ng-content></ng-content>
+  </div>
+</div>
+  

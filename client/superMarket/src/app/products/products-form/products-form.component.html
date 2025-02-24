@@ -1,1 +1,60 @@
-<p>products-form works!</p>
+<page>
+    <header 
+        [title]="headerTitle" 
+        [showCreateButton]="true" 
+        [isForm]="true" 
+        [buttonDisabled]="!isValid()" 
+        (buttonClicked)="save()">
+    </header>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+        <div id="upper-form-container" class="form-container">
+            <mat-form-field id="name-field">
+                <mat-label>Nome</mat-label>
+                <input matInput formControlName="name" placeholder="Nome do produto">
+                @if (form.get('name')?.hasError('required')) {
+                    <mat-error>O campo Nome é obrigatório</mat-error>
+                }
+                @if (form.get('name')?.hasError('maxlength')) {
+                    <mat-error>O nome não pode exceder 100 caracteres</mat-error>
+                }
+            </mat-form-field>
+        </div>
+
+        <div id="lower-form-container" class="form-container">
+            <mat-form-field id="type-field">
+                <mat-label>Tipo</mat-label>
+                <mat-select formControlName="productTypeId" placeholder="Selecione o tipo">
+                    @for (type of productsTypes; track type.id) {
+                        <mat-option [value]="type.id">{{ type.name }}</mat-option>
+                    }
+                </mat-select>
+                @if (form.get('productTypeId')?.hasError('required')) {
+                <mat-error>O campo Tipo é obrigatório</mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field id="stock-field">
+                <mat-label>Quantidade em estoque</mat-label>
+                <input matInput formControlName="stock" placeholder="Quantidade em estoque" type="number">
+                @if (form.get('stock')?.hasError('required')) {
+                    <mat-error>O campo Quantidade em estoque é obrigatório</mat-error>
+                }
+                @if (form.get('stock')?.hasError('min')) {
+                    <mat-error>A quantidade em estoque não pode ser negativa</mat-error>
+                }
+            </mat-form-field >
+
+            <mat-form-field id="cost-field">
+                <mat-label>Custo</mat-label>
+                <input matInput formControlName="cost" placeholder="Custo" type="number">
+                @if (form.get('cost')?.hasError('required')) {
+                    <mat-error>O campo Custo é obrigatório</mat-error>
+                }
+                @if (form.get('cost')?.hasError('min')) {
+                    <mat-error>O custo não pode ser negativo</mat-error>
+                }
+            </mat-form-field>
+        </div>
+    </form>
+</page>

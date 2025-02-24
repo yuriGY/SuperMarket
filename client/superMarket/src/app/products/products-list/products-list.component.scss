@@ -1,0 +1,31 @@
+tr:hover:not(thead tr) {
+    background-color: #f8e8e9;
+    cursor: pointer;
+}
+
+.table-container {
+    overflow-y: auto;
+}
+
+button {
+    background-color: #f8e8e9;
+    border: 1px solid rgba(173, 123, 159, 0.973);
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+
+    mat-icon {
+        color: #643757f8;
+    }
+}
+
+button:hover {
+    background-color: #880061;
+    border: 1px solid #643757f8;
+
+    mat-icon {
+        cursor: pointer;
+        color: #f8e8e9;
+    }
+}
+

@@ -1,0 +1,15 @@
+<div id="header-content">
+    <span>{{ title }}</span>
+    @if (showCreateButton) {
+        <button mat-button [disabled]="buttonDisabled" (click)="isForm ?  buttonClicked.emit() : navigateToNew()" 
+            [ngStyle]="{ 
+                'height': isForm ? '42px' : '48px', 
+                'width': isForm ? '116px' : '160px',
+                'background-color': !buttonDisabled ? '#880061' : '#c7c7c7',
+                'color': !buttonDisabled ? '#faeeef' : '',
+                }">
+                <mat-icon>{{ isForm ? 'check' : 'add' }}</mat-icon>
+                {{ isForm ? 'Salvar' : 'Cadastrar' }}
+        </button>
+    }
+</div>

@@ -1,0 +1,58 @@
+mat-toolbar {
+  background-color: #880061;
+  box-shadow: inset 20px -15px 20px 11px rgba(0, 0, 0, 0.1);
+
+  #logo {
+    height: 100%;
+    color: #faeeef;
+    font-size: 16px;
+  }
+
+  mat-icon {
+    color: #faeeef;
+  }
+
+  button:hover {
+    background-color: none;
+  }
+}
+
+#page-container {
+  display: flex;
+  flex-direction: row;
+
+  mat-sidenav-container {
+    display: flex;
+    border-right: 2px #faeeef solid;
+    max-width: 250px;
+    
+    section {
+      margin-top: 10px;
+    
+      .nav-item {
+        display: flex;
+        align-items: center;
+        border-bottom: 2px #faeeef solid;
+        border-radius: 0px !important;
+        padding: 10px;
+
+        mat-icon {
+          margin-top: 4px;
+          margin-right: 10px;
+          font-size: 20px;
+          color: #643757f8;
+        }
+      }
+
+      .nav-item:hover {
+        cursor: pointer;
+        background-color: #faeeef;
+      }
+    }
+  }
+    
+  .content {
+    width: 100%;
+    background-color: #FFF8F8;
+  }
+}

@@ -20,7 +20,12 @@ class GetProductByIdQuery {
     }
 
     public function Execute($id) {
-        $sql = $this->pdo->prepare("SELECT id, name, product_type_id, stock, cost FROM products WHERE id = ? AND removed = FALSE");
+        $sql = $this->pdo->prepare("
+            SELECT p.id, p.name, pt.name AS typename, p.stock, p.cost, pt.removed AS typeremoved, pt.id AS typeid
+            FROM products p
+            INNER JOIN products_types pt ON (p.product_type_id = pt.id)
+            WHERE p.id = ? AND p.removed = FALSE"
+        );
         $sql->execute([$id]);
         $product = $sql->fetch(PDO::FETCH_ASSOC);
 
