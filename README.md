@@ -98,6 +98,7 @@ A seguir estão listadas as ideias de melhorias que tive, mas acabei que não im
 
 ### Client
 
+- Alterar ícone do projeto
 - Implementar tela de checkout
 - Implementar barra de busca no carrinho
 - Implementar responsividade completa Mobile

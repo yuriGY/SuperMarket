@@ -53,7 +53,7 @@ export class ProductsListComponent implements OnDestroy {
   }
 
   onRowClick(event: MouseEvent, productId: string): void {
-    if ((event.target as HTMLElement).tagName === 'BUTTON') return;
+    if ((event.target as HTMLElement).tagName === 'BUTTON' || (event.target as HTMLElement).tagName === 'MAT-ICON') return;
 
     this.router.navigate(['/products', productId]);
   }
